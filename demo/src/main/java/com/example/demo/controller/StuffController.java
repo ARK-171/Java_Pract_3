@@ -22,13 +22,13 @@ public class StuffController {
 		this.stuffRepository = stuffRepository;
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public List<Stuff> getStuff() {
 		return stuffRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Stuff getStuffById(@PathVariable("id") int id) {
+	public Stuff getStuffById(@PathVariable("id") UUID id) {
 		return stuffRepository.findById(id).orElse(null);
 	}
 }

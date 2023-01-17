@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("/api/v1/office")
 public class OfficeController {
@@ -22,13 +23,13 @@ public class OfficeController {
 		this.officeRepository = officeRepository;
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public List<Office> getOffice() {
 		return officeRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Office getOfficeById(@PathVariable("id") int id) {
+	public Office getOfficeById(@PathVariable("id") UUID id) {
 		return officeRepository.findById(id).orElse(null);
 	}
 }

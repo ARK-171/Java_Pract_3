@@ -1,4 +1,5 @@
-package com.example.demo.service.impl;
+package com.example.demo.impl;
+
 
 import com.example.demo.model.Client;
 import com.example.demo.model.Offer;
@@ -8,13 +9,12 @@ import com.example.demo.repository.StuffRepository;
 import com.example.demo.service.OfferControllerService;
 import com.example.demo.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
-@Service
+
 public class OfferControllerServiceImpl implements OfferControllerService {
 
 	private final ClientRepository clientRepository;
@@ -32,7 +32,7 @@ public class OfferControllerServiceImpl implements OfferControllerService {
 		this.offerService = offerService;
 	}
 
-	@Override
+
 	public Offer signNewOffer(LocalDate startDate, LocalDate endingDate, UUID clientId, UUID stuffId) {
 		Objects.requireNonNull(startDate);
 		Objects.requireNonNull(endingDate);

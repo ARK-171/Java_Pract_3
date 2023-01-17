@@ -1,38 +1,60 @@
 package com.example.demo.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
-public class Stuff {
-	private int id;
+@Entity
+@Table(name = "cw6_stuff")
+public class
+Stuff {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Type(type = "org.hibernate.type.UUIDCharType")
+	private UUID id;
+
+	@Column(name = "surname")
 	private String surname;
-	private String name;
-	private String patronymic;
-	private String sex;
-	private LocalDate birthDate;
-	private Double salaryMultiplier;
-	private int position;
 
-	public Stuff() throws SQLException {
-		Statement st = DB.getConnection().createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM Stuff ");
-		this.id = rs.getInt("id");
-		this.surname = rs.getString("surname");
-		this.name = rs.getString("name");
-		this.patronymic = rs.getString("patronymic");
-		this.sex = rs.getString("sex");
-		this.birthDate = (rs.getDate("birthDate")).toLocalDate();
-		this.salaryMultiplier = rs.getDouble("salaryMultiplier");
-		this.position = rs.getInt("position");
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "patronymic")
+	private String patronymic;
+
+	@Column(name = "sex")
+	private String sex;
+
+	@Column(name = "birth_date")
+	private LocalDate birthDate;
+
+	@Column(name = "salary_multiplier")
+	private Double salaryMultiplier;
+
+	@ManyToOne(targetEntity = Position.class, optional = false)
+	@JoinColumn(name = "position_id")
+	private Position position;
+
+	public Stuff() {
 	}
 
-	public int getId() {
+	public Stuff(UUID id, String surname, String name, String patronymic, String sex,
+	             LocalDate birthDate, Double salaryMultiplier, Position position) {
+		this.id = id;
+		this.surname = surname;
+		this.name = name;
+		this.patronymic = patronymic;
+		this.sex = sex;
+		this.birthDate = birthDate;
+		this.salaryMultiplier = salaryMultiplier;
+		this.position = position;
+	}
+
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -84,12 +106,75 @@ public class Stuff {
 		this.salaryMultiplier = salaryMultiplier;
 	}
 
-	public int getPosition() {
+	public Position getPosition() {
 		return position;
 	}
 
-	public void setPosition(int position) {
+	public void setPosition(Position position) {
 		this.position = position;
 	}
 
+	public static class Builder {
+		private UUID id;
+		private String surname;
+		private String name;
+		private String patronymic;
+		private String sex;
+		private LocalDate birthDate;
+		private Double salaryMultiplier;
+		private Position position;
+
+		public Stuff build() {
+			Stuff stuff = new Stuff();
+			stuff.setId(id);
+			stuff.setSurname(surname);
+			stuff.setName(name);
+			stuff.setPatronymic(patronymic);
+			stuff.setSex(sex);
+			stuff.setPosition(position);
+			stuff.setSalaryMultiplier(salaryMultiplier);
+			stuff.setBirthDate(birthDate);
+			return stuff;
+		}
+
+		public Builder setId(UUID id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder setSurname(String surname) {
+			this.surname = surname;
+			return this;
+		}
+
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder setPatronymic(String patronymic) {
+			this.patronymic = patronymic;
+			return this;
+		}
+
+		public Builder setSex(String sex) {
+			this.sex = sex;
+			return this;
+		}
+
+		public Builder setBirthDate(LocalDate birthDate) {
+			this.birthDate = birthDate;
+			return this;
+		}
+
+		public Builder setSalaryMultiplier(Double salaryMultiplier) {
+			this.salaryMultiplier = salaryMultiplier;
+			return this;
+		}
+
+		public Builder setPosition(Position position) {
+			this.position = position;
+			return this;
+		}
+	}
 }

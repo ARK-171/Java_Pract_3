@@ -1,29 +1,42 @@
 package com.example.demo.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
+import java.util.UUID;
+
+@Entity
+@Table(name = "cw6_office")
 public class Office {
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Type(type = "org.hibernate.type.UUIDCharType")
+	private UUID id;
+
+	@Column(name = "address")
 	private String address;
+
+	@Column(name = "law_address")
 	private String lawAddress;
+
+	@Column(name = "cabinets_count")
 	private Integer cabinetsCount;
 
-	public Office() throws SQLException {
-		Statement st = DB.getConnection().createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM Office ");
-		this.id = rs.getInt("id");
-		this.address = rs.getString("address");
-		this.lawAddress = rs.getString("lawAddress");
-		this.cabinetsCount = rs.getInt("cabinetsCount");
+	public Office() {
 	}
 
-	public int getId() {
+	public Office(UUID id, String address, String lawAddress, Integer cabinetsCount) {
+		this.id = id;
+		this.address = address;
+		this.lawAddress = lawAddress;
+		this.cabinetsCount = cabinetsCount;
+	}
+
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -51,4 +64,34 @@ public class Office {
 		this.cabinetsCount = cabinetsCount;
 	}
 
+	public class Builder {
+		private UUID id;
+		private String address;
+		private String lawAddress;
+		private Integer cabinetsCount;
+
+		public Builder setId(UUID id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder setAddress(String address) {
+			this.address = address;
+			return this;
+		}
+
+		public Builder setLawAddress(String lawAddress) {
+			this.lawAddress = lawAddress;
+			return this;
+		}
+
+		public Builder setCabinetsCount(Integer cabinetsCount) {
+			this.cabinetsCount = cabinetsCount;
+			return this;
+		}
+
+		public Office createOffice() {
+			return new Office(id, address, lawAddress, cabinetsCount);
+		}
+	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("/api/v1/position")
 public class PositionController {
@@ -22,13 +23,13 @@ public class PositionController {
 		this.positionRepository = positionRepository;
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public List<Position> getPositions() {
 		return positionRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Position getPosition(@PathVariable("id") int id) {
+	public Position getPosition(@PathVariable("id") UUID id) {
 		return positionRepository.findById(id).orElse(null);
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.demo.service.impl;
+package com.example.demo.impl;
 
 import com.example.demo.dto.OfferStatistic;
 import com.example.demo.model.Client;
@@ -7,7 +7,6 @@ import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.OfferRepository;
 import com.example.demo.service.OfferStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service
+
 public class OfferStatisticServiceImpl implements OfferStatisticService {
 
 	private final OfferRepository offerRepository;
@@ -40,10 +39,10 @@ public class OfferStatisticServiceImpl implements OfferStatisticService {
 			} else {
 				clientStatistic.put(offer.getClient().getSurname(), 1);
 			}
-			if (stuffStatistic.containsKey(offer.getStuff().getSurname())) {
-				stuffStatistic.compute(offer.getStuff().getSurname(), (k, v) -> v + 1);
+			if (stuffStatistic.containsKey(offer.getClient().getSurname())) {
+				stuffStatistic.compute(offer.getClient().getSurname(), (k, v) -> v + 1);
 			} else {
-				stuffStatistic.put(offer.getStuff().getSurname(), 1);
+				stuffStatistic.put(offer.getClient().getSurname(), 1);
 			}
 		});
 		statisticBuilder.setStuffStatistics(stuffStatistic);

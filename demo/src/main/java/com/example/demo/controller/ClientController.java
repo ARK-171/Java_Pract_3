@@ -3,10 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Client;
 import com.example.demo.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,14 +20,15 @@ public class ClientController {
 		this.clientRepository = clientRepository;
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public List<Client> getAllClients() {
 		return clientRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Client getClientById(@PathVariable("id") int id) {
+	public String getClientById(@PathVariable("id") UUID id) {
 		Objects.requireNonNull(id);
-		return clientRepository.findById(id).orElse(null);
+		return clientRepository.getReferenceById(id).toString();
 	}
+
 }

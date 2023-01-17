@@ -1,30 +1,38 @@
 package com.example.demo.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
+import java.util.UUID;
+
+@Entity
+@Table(name = "cw6_position")
 public class Position {
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Type(type = "org.hibernate.type.UUIDCharType")
+	private UUID id;
+
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "salary")
 	private Integer salary;
 
 	public Position() {
 	}
 
-	public Position(int id, String name, Integer salary) throws SQLException {
-		Statement st = DB.getConnection().createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM Position ");
-		this.id = rs.getInt("id");
-		this.name = rs.getString("name");
-		this.salary = rs.getInt("salary");
+	public Position(UUID id, String name, Integer salary) {
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
 	}
 
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -44,4 +52,32 @@ public class Position {
 		this.salary = salary;
 	}
 
+	public static class Builder {
+		private UUID id;
+		private String name;
+		private Integer salary;
+
+		public Position build() {
+			Position position = new Position();
+			position.setId(id);
+			position.setName(name);
+			position.setSalary(salary);
+			return position;
+		}
+
+		public Builder setId(UUID id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder setSalary(Integer salary) {
+			this.salary = salary;
+			return this;
+		}
+	}
 }

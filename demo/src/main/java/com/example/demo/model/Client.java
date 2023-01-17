@@ -1,40 +1,78 @@
 package com.example.demo.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
+@Entity
+@Table(name = "cw6_client")
 public class Client {
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Type(type = "org.hibernate.type.UUIDCharType")
+	private UUID id;
+
+	@Column(name = "surname")
 	private String surname;
+
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "patronymic")
 	private String patronymic;
+
+	@Column(name = "sex")
 	private String sex;
+
+	@Column(name = "birth_date")
 	private LocalDate birthDate;
+
+	@Column(name = "inn")
 	private String inn;
+
+	@Column(name = "passport_serial")
 	private String passportSerial;
+
+	@Column(name = "phone")
 	private String phone;
 
-	public Client( ) throws SQLException {
-		Statement st = DB.getConnection().createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM Client ");
-		this.id = rs.getInt("id");
-		this.surname = rs.getString("surname");
-		this.name = rs.getString("name");
-		this.patronymic = rs.getString("patronymic");
-		this.sex = rs.getString("sex");
-		this.birthDate = (rs.getDate("birthDate")).toLocalDate();
-		this.inn = rs.getString("inn");
-		this.passportSerial = rs.getString("passportSerial");
-		this.phone = rs.getString("phone");
+	/*final UUID id,
+                      final String surname,
+                      final String name,
+                      final String patronymic,
+                      final String sex,
+                      final LocalDate birthDate,
+                      final String inn,
+                      final String passportSerial,
+                      final String phone*/
+	public Client() {
+		/*this.id = id;
+		this.surname = surname;
+		this.name = name;
+		this.patronymic = patronymic;
+		this.sex = sex;
+		this.birthDate = birthDate;
+		this.inn = inn;
+		this.passportSerial = passportSerial;
+		this.phone = phone;*/
+		this.id = UUID.randomUUID();
+		this.surname = "vol";
+		this.name = "sdfgrjg";
+		this.patronymic = "dfhrtj";
+		this.sex = "shgdf";
+		this.birthDate = LocalDate.now();
+		this.inn = "fdgjy";
+		this.passportSerial = "srfhgjf";
+		this.phone = "sfhgyrk";
 	}
 
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -102,4 +140,89 @@ public class Client {
 		this.phone = phone;
 	}
 
+	@Override
+	public String toString() {
+		return "Client{" +
+		       "id=" + id +
+		       ", surname='" + surname + '\'' +
+		       ", name='" + name + '\'' +
+		       ", patronymic='" + patronymic + '\'' +
+		       ", sex=" + sex +
+		       ", birthDate=" + birthDate +
+		       ", inn='" + inn + '\'' +
+		       ", passportSerial='" + passportSerial + '\'' +
+		       ", phone='" + phone + '\'' +
+		       '}';
+	}
+
+	public static class Builder {
+		private UUID id;
+		private String surname;
+		private String name;
+		private String patronymic;
+		private String sex;
+		private LocalDate birthDate;
+		private String inn;
+		private String passportSerial;
+		private String phone;
+
+		public Client build() {
+			Client client = new Client();
+			client.setId(id);
+			client.setSurname(surname);
+			client.setName(name);
+			client.setPatronymic(patronymic);
+			client.setPassportSerial(passportSerial);
+			client.setSex(sex);
+			client.setBirthDate(birthDate);
+			client.setInn(inn);
+			client.setPhone(phone);
+			return client;
+		}
+
+		public Builder setId(UUID id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder setSurname(String surname) {
+			this.surname = surname;
+			return this;
+		}
+
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder setPatronymic(String patronymic) {
+			this.patronymic = patronymic;
+			return this;
+		}
+
+		public Builder setSex(String sex) {
+			this.sex = sex;
+			return this;
+		}
+
+		public Builder setBirthDate(LocalDate birthDate) {
+			this.birthDate = birthDate;
+			return this;
+		}
+
+		public Builder setInn(String inn) {
+			this.inn = inn;
+			return this;
+		}
+
+		public Builder setPassportSerial(String passportSerial) {
+			this.passportSerial = passportSerial;
+			return this;
+		}
+
+		public Builder setPhone(String phone) {
+			this.phone = phone;
+			return this;
+		}
+	}
 }

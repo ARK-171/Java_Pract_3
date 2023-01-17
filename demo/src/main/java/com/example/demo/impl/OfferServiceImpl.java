@@ -1,4 +1,4 @@
-package com.example.demo.service.impl;
+package com.example.demo.impl;
 
 import com.example.demo.model.Client;
 import com.example.demo.model.Offer;
@@ -8,12 +8,11 @@ import com.example.demo.repository.OfficeRepository;
 import com.example.demo.service.OfferService;
 import com.example.demo.service.SerialNumberGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Service
+
 public class OfferServiceImpl implements OfferService {
 
 	private OfficeRepository officeRepository;

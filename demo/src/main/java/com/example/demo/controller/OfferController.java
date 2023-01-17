@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("/api/v1/offer")
 public class OfferController {
@@ -32,17 +33,17 @@ public class OfferController {
 		this.offerStatisticService = offerStatisticService;
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public List<Offer> getOffer() {
 		return offerRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Offer getOfferById(@PathVariable("id") int id) {
+	public Offer getOfferById(@PathVariable("id") UUID id) {
 		return offerRepository.findById(id).orElse(null);
 	}
 
-	@PutMapping("")
+	@PutMapping("/")
 	public Offer signNewOffer(@RequestBody NewOfferParameters offerParameters) {
 		Objects.requireNonNull(offerParameters);
 		Objects.requireNonNull(offerParameters.getClientId());
