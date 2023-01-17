@@ -6,5 +6,5 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public interface OfferControllerService {
-	Offer signNewOffer(LocalDate startDate, LocalDate endingDate, UUID clientId, UUID stuffId);
+	Offer signNewOffer(LocalDate startDate, LocalDate endingDate, int clientId, int stuffId);
 }

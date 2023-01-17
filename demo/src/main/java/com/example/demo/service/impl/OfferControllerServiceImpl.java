@@ -14,32 +14,22 @@ import java.util.UUID;
 
 @Service
 public class OfferControllerServiceImpl implements OfferControllerService {
-
-
-	private final ClientRepository clientRepository;
-
-	private final StuffRepository stuffRepository;
-
 	private final OfferService offerService;
 
 	@Autowired
-	public OfferControllerServiceImpl( ClientRepository clientRepository,
-	                                   StuffRepository stuffRepository,
-	                                   OfferService offerService) {
-		this.clientRepository = clientRepository;
-		this.stuffRepository = stuffRepository;
+	public OfferControllerServiceImpl(OfferService offerService) {
 		this.offerService = offerService;
 	}
 
 	@Override
-	public Offer signNewOffer(LocalDate startDate, LocalDate endingDate, UUID clientId, UUID stuffId) {
+	public Offer signNewOffer(LocalDate startDate, LocalDate endingDate, int clientId, int stuffId) {
 		Objects.requireNonNull(startDate);
 		Objects.requireNonNull(endingDate);
 		Objects.requireNonNull(clientId);
 		Objects.requireNonNull(stuffId);
 
-		Client client = clientRepository.findById(clientId).orElseThrow();
-		Stuff stuff = stuffRepository.findById(stuffId).orElseThrow();
+		Client client = Client.ClientRepository.get(clientId);
+		Stuff stuff = Stuff.StuffRepository.get(stuffId);
 		return offerService.signNewOffer(startDate, endingDate, client, stuff);
 	}
 

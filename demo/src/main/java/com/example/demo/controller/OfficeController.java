@@ -1,11 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Office;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -13,17 +9,20 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/v1/office")
 public class OfficeController {
-	public final Map<Integer, Office> OfficeRepository = new HashMap<>();
 
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Office> getOffice() {
-		Office off = new Office(UUID.randomUUID(), "rechka 21", "Kazakstan", 56);
-		OfficeRepository.put(1, off);
-		return new ArrayList<>(OfficeRepository.values());
+		return new ArrayList<>(Office.OfficeRepository.values());
 	}
 
 	@GetMapping("/{id}")
-	public Office getOfficeById(@PathVariable("id") UUID id) {
-		return OfficeRepository.get(id);
+	public Office getOfficeById(@PathVariable("id") int id) {
+		return Office.OfficeRepository.get(id);
+	}
+
+	@PutMapping("")
+	public Office newOffice(String address, String lawAddress, Integer cabinetsCount){
+		Office office = new Office(address, lawAddress, cabinetsCount);
+		return Office.OfficeRepository.put(Office.x, office);
 	}
 }

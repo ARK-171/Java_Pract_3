@@ -3,40 +3,33 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-@Entity
-@Table(name = "cw6_office")
 public class Office {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	//@Type(type = "org.hibernate.type.UUIDCharType")
-	private UUID id;
-
-	@Column(name = "address")
+	public static Map<Integer, Office> OfficeRepository = new HashMap<>();
+	public static int x = 0;
+	private int id;
 	private String address;
-
-	@Column(name = "law_address")
 	private String lawAddress;
-
-	@Column(name = "cabinets_count")
 	private Integer cabinetsCount;
-
 	public Office() {
 	}
 
-	public Office(UUID id, String address, String lawAddress, Integer cabinetsCount) {
-		this.id = id;
+	public Office(String address, String lawAddress, Integer cabinetsCount) {
+		this.id = x+1;
+		x += 1;
 		this.address = address;
 		this.lawAddress = lawAddress;
 		this.cabinetsCount = cabinetsCount;
 	}
 
-	public UUID getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -64,34 +57,4 @@ public class Office {
 		this.cabinetsCount = cabinetsCount;
 	}
 
-	public class Builder {
-		private UUID id;
-		private String address;
-		private String lawAddress;
-		private Integer cabinetsCount;
-
-		public Builder setId(UUID id) {
-			this.id = id;
-			return this;
-		}
-
-		public Builder setAddress(String address) {
-			this.address = address;
-			return this;
-		}
-
-		public Builder setLawAddress(String lawAddress) {
-			this.lawAddress = lawAddress;
-			return this;
-		}
-
-		public Builder setCabinetsCount(Integer cabinetsCount) {
-			this.cabinetsCount = cabinetsCount;
-			return this;
-		}
-
-		public Office createOffice() {
-			return new Office(id, address, lawAddress, cabinetsCount);
-		}
-	}
 }

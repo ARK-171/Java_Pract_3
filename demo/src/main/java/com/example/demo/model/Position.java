@@ -3,36 +3,29 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-@Entity
-@Table(name = "cw6_position")
 public class Position {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	//@Type(type = "org.hibernate.type.UUIDCharType")
-	private UUID id;
-
-	@Column(name = "name")
+	public static Map<Integer, Position> PositionRepository = new HashMap<>();
+	public static int x = 0;
+	private int id;
 	private String name;
-
-	@Column(name = "salary")
 	private Integer salary;
 
-	public Position() {
-	}
-
-	public Position(UUID id, String name, Integer salary) {
-		this.id = id;
+	public Position(String name, Integer salary) {
+		this.id = x+1;
+		x += 1;
 		this.name = name;
 		this.salary = salary;
 	}
 
-	public UUID getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -52,32 +45,5 @@ public class Position {
 		this.salary = salary;
 	}
 
-	public static class Builder {
-		private UUID id;
-		private String name;
-		private Integer salary;
 
-		public Position build() {
-			Position position = new Position();
-			position.setId(id);
-			position.setName(name);
-			position.setSalary(salary);
-			return position;
-		}
-
-		public Builder setId(UUID id) {
-			this.id = id;
-			return this;
-		}
-
-		public Builder setName(String name) {
-			this.name = name;
-			return this;
-		}
-
-		public Builder setSalary(Integer salary) {
-			this.salary = salary;
-			return this;
-		}
-	}
 }

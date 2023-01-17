@@ -7,10 +7,10 @@ import java.util.UUID;
 
 public class NewOfferParameters {
 	@JsonProperty("client_id")
-	private UUID clientId;
+	private int clientId;
 
 	@JsonProperty("stuff_id")
-	private UUID stuffId;
+	private int stuffId;
 
 	@JsonProperty("start_date")
 	private LocalDate startDate;
@@ -21,26 +21,26 @@ public class NewOfferParameters {
 	public NewOfferParameters() {
 	}
 
-	public NewOfferParameters(UUID clientId, UUID stuffId, LocalDate startDate, LocalDate endingDate) {
+	public NewOfferParameters(int clientId, int stuffId, LocalDate startDate, LocalDate endingDate) {
 		this.clientId = clientId;
 		this.stuffId = stuffId;
 		this.startDate = startDate;
 		this.endingDate = endingDate;
 	}
 
-	public UUID getClientId() {
+	public int getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(UUID clientId) {
+	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
 
-	public UUID getStuffId() {
+	public int getStuffId() {
 		return stuffId;
 	}
 
-	public void setStuffId(UUID stuffId) {
+	public void setStuffId(int stuffId) {
 		this.stuffId = stuffId;
 	}
 

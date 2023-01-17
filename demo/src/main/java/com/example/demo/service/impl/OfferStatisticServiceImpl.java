@@ -7,29 +7,16 @@ import com.example.demo.service.OfferStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class OfferStatisticServiceImpl implements OfferStatisticService {
 
-	private final OfferRepository offerRepository;
-
-	private final ClientRepository clientRepository;
-
-	@Autowired
-	public OfferStatisticServiceImpl( OfferRepository offerRepository, ClientRepository clientRepository) {
-		this.offerRepository = offerRepository;
-		this.clientRepository = clientRepository;
-	}
-
 	@Override
 	public OfferStatistic getOfferStatistic() {
 		OfferStatistic.Builder statisticBuilder = new OfferStatistic.Builder();
-		List<Offer> offers = offerRepository.findAll();
+		List<Offer> offers = List.copyOf(Offer.OfferRepository.values());
 		Map<String, Integer> clientStatistic = new HashMap<>();
 		Map<String, Integer> stuffStatistic = new HashMap<>();
 		offers.forEach(offer -> {
@@ -46,10 +33,10 @@ public class OfferStatisticServiceImpl implements OfferStatisticService {
 		});
 		statisticBuilder.setStuffStatistics(stuffStatistic);
 		statisticBuilder.setClientStatistics(clientStatistic);
-		Set<String> clientSurnames = clientRepository.findAll()
-				.stream()
-				.map(Client::getSurname)
-				.collect(Collectors.toSet());
+		Set<String> clientSurnames = new HashSet<>();
+		for (int i = 0; i < Client.x; i++){
+			clientSurnames.add(Client.ClientRepository.get(i).toString());
+		}
 		statisticBuilder.setClientSurnames(clientSurnames);
 		return statisticBuilder.build();
 	}

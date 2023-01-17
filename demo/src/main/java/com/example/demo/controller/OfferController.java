@@ -16,8 +16,6 @@ import java.util.*;
 @RequestMapping("/api/v1/offer")
 public class OfferController {
 
-	private final Map<UUID, Offer> OfferRepository = new HashMap<>();
-
 	private final OfferControllerService offerService;
 
 	private final OfferStatisticService offerStatisticService;
@@ -30,17 +28,17 @@ public class OfferController {
 		this.offerStatisticService = offerStatisticService;
 	}
 
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Offer> getOffer() {
-		return new ArrayList<>(OfferRepository.values());
+		return new ArrayList<>(Offer.OfferRepository.values());
 	}
 
 	@GetMapping("/{id}")
 	public Offer getOfferById(@PathVariable("id") UUID id) {
-		return OfferRepository.get(id);
+		return Offer.OfferRepository.get(id);
 	}
 
-	@PutMapping("/")
+	@PutMapping("")
 	public Offer signNewOffer(@RequestBody NewOfferParameters offerParameters) {
 		Objects.requireNonNull(offerParameters);
 		Objects.requireNonNull(offerParameters.getClientId());

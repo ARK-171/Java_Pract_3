@@ -2,46 +2,25 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
-
-@Entity
-@Table(name = "cw6_offer")
 public class Offer {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	//	@Type(type = "org.hibernate.type.UUIDCharType")
-	private UUID id;
-
-	@Column(name = "serial_number")
+	public static Map<Integer, Offer> OfferRepository = new HashMap<>();
+	public static int x = 0;
+	private int id;
 	private String serialNumber;
-
-	@Column(name = "sign_date")
 	private LocalDate signDate;
-
-	@Column(name = "ending_date")
 	private LocalDate endingDate;
-
-	@Column(name = "start_date")
 	private LocalDate startDate;
-
-	@ManyToOne(targetEntity = Client.class, optional = false)
-	@JoinColumn(name = "client_id")
 	private Client client;
-
-	@ManyToOne(targetEntity = Office.class, optional = false)
-	@JoinColumn(name = "office_id")
 	private Office office;
-
-	@ManyToOne(targetEntity = Stuff.class, optional = false)
-	@JoinColumn(name = "stuff_id")
 	private Stuff stuff;
 
-	public Offer() {
-	}
-
-	public Offer(UUID id, String serialNumber, LocalDate signDate, LocalDate endingDate,
+	public Offer(String serialNumber, LocalDate signDate, LocalDate endingDate,
 	             LocalDate startDate, Client client, Office office, Stuff stuff) {
-		this.id = id;
+		this.id = x+1;
+		x += 1;
 		this.serialNumber = serialNumber;
 		this.signDate = signDate;
 		this.endingDate = endingDate;
@@ -51,11 +30,11 @@ public class Offer {
 		this.stuff = stuff;
 	}
 
-	public UUID getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -127,69 +106,5 @@ public class Offer {
 		       ", office=" + office +
 		       ", stuff=" + stuff +
 		       '}';
-	}
-
-	public static class Builder {
-		private UUID id;
-		private String serialNumber;
-		private LocalDate signDate;
-		private LocalDate endingDate;
-		private LocalDate startDate;
-		private Client client;
-		private Office office;
-		private Stuff stuff;
-
-		public Offer build() {
-			Offer offer = new Offer();
-			offer.setId(id);
-			offer.setSerialNumber(serialNumber);
-			offer.setClient(client);
-			offer.setOffice(office);
-			offer.setStuff(stuff);
-			offer.setSignDate(signDate);
-			offer.setStartDate(startDate);
-			offer.setEndingDate(endingDate);
-			return offer;
-		}
-
-		public Builder setId(UUID id) {
-			this.id = id;
-			return this;
-		}
-
-		public Builder setSerialNumber(String serialNumber) {
-			this.serialNumber = serialNumber;
-			return this;
-		}
-
-		public Builder setSignDate(LocalDate signDate) {
-			this.signDate = signDate;
-			return this;
-		}
-
-		public Builder setEndingDate(LocalDate endingDate) {
-			this.endingDate = endingDate;
-			return this;
-		}
-
-		public Builder setStartDate(LocalDate startDate) {
-			this.startDate = startDate;
-			return this;
-		}
-
-		public Builder setClient(Client client) {
-			this.client = client;
-			return this;
-		}
-
-		public Builder setOffice(Office office) {
-			this.office = office;
-			return this;
-		}
-
-		public Builder setStuff(Stuff stuff) {
-			this.stuff = stuff;
-			return this;
-		}
 	}
 }
