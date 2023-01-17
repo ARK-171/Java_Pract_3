@@ -1,35 +1,33 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Position;
-import com.example.demo.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @RestController
 @RequestMapping("/api/v1/position")
 public class PositionController {
 
-	private final PositionRepository positionRepository;
+	public final Map<Integer, Position> PositionRepository = new HashMap<>();
 
-	@Autowired
-	public PositionController(PositionRepository positionRepository) {
-		this.positionRepository = positionRepository;
+	public PositionController(){
+
 	}
-
 	@GetMapping("/")
 	public List<Position> getPositions() {
-		return positionRepository.findAll();
+		Position p = new Position(UUID.randomUUID(), "bugalter", 45000);
+		PositionRepository.put(1,p);
+		return new ArrayList<>(PositionRepository.values());
 	}
 
 	@GetMapping("/{id}")
 	public Position getPosition(@PathVariable("id") UUID id) {
-		return positionRepository.findById(id).orElse(null);
+		return PositionRepository.get(id);
 	}
 }

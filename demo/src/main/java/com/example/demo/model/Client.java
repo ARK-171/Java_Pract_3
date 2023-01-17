@@ -38,17 +38,16 @@ public class Client {
 	@Column(name = "phone")
 	private String phone;
 
-	/*final UUID id,
-                      final String surname,
-                      final String name,
-                      final String patronymic,
-                      final String sex,
-                      final LocalDate birthDate,
-                      final String inn,
-                      final String passportSerial,
-                      final String phone*/
-	public Client() {
-		/*this.id = id;
+	public Client(final UUID id,
+				  final String surname,
+				  final String name,
+				  final String patronymic,
+				  final String sex,
+				  final LocalDate birthDate,
+				  final String inn,
+				  final String passportSerial,
+				  final String phone) {
+		this.id = id;
 		this.surname = surname;
 		this.name = name;
 		this.patronymic = patronymic;
@@ -56,16 +55,7 @@ public class Client {
 		this.birthDate = birthDate;
 		this.inn = inn;
 		this.passportSerial = passportSerial;
-		this.phone = phone;*/
-		this.id = UUID.randomUUID();
-		this.surname = "vol";
-		this.name = "sdfgrjg";
-		this.patronymic = "dfhrtj";
-		this.sex = "shgdf";
-		this.birthDate = LocalDate.now();
-		this.inn = "fdgjy";
-		this.passportSerial = "srfhgjf";
-		this.phone = "sfhgyrk";
+		this.phone = phone;
 	}
 
 	public UUID getId() {
@@ -155,7 +145,7 @@ public class Client {
 		       '}';
 	}
 
-	public static class Builder {
+/*	public static class Builder {
 		private UUID id;
 		private String surname;
 		private String name;
@@ -224,5 +214,5 @@ public class Client {
 			this.phone = phone;
 			return this;
 		}
-	}
+	}*/
 }

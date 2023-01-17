@@ -1,34 +1,31 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Client;
-import com.example.demo.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/client")
 public class ClientController {
 
-	private final ClientRepository clientRepository;
+	public final Map<Integer, Client> clientRepository = new HashMap<>();
 
-	@Autowired
-	public ClientController(ClientRepository clientRepository) {
-		this.clientRepository = clientRepository;
-	}
-
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Client> getAllClients() {
-		return clientRepository.findAll();
+		Client c = new Client(UUID.randomUUID(), "kozlov", "Sergey", "Ivanovich", "M", LocalDate.now(), "947328439201", "7428019478", "+79167853426");
+		clientRepository.put(1, c);
+		c = new Client(UUID.randomUUID(), "Ivanov", "Ivan", "Ivanovich", "M", LocalDate.now(), "947368438201", "6418019478", "+79164953496");
+		clientRepository.put(2, c);
+		return new ArrayList<>(clientRepository.values());
 	}
 
 	@GetMapping("/{id}")
 	public String getClientById(@PathVariable("id") UUID id) {
 		Objects.requireNonNull(id);
-		return clientRepository.getReferenceById(id).toString();
+		return clientRepository.get(id).toString();
 	}
 
 }

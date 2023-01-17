@@ -3,8 +3,6 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Client;
 import com.example.demo.model.Offer;
 import com.example.demo.model.Stuff;
-import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.StuffRepository;
 import com.example.demo.service.OfferControllerService;
 import com.example.demo.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import java.util.UUID;
 
 @Service
 public class OfferControllerServiceImpl implements OfferControllerService {
+
 
 	private final ClientRepository clientRepository;
 

@@ -3,8 +3,6 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Client;
 import com.example.demo.model.Offer;
 import com.example.demo.model.Stuff;
-import com.example.demo.repository.OfferRepository;
-import com.example.demo.repository.OfficeRepository;
 import com.example.demo.service.OfferService;
 import com.example.demo.service.SerialNumberGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;

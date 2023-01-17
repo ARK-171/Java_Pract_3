@@ -3,8 +3,6 @@ package com.example.demo.service.impl;
 import com.example.demo.dto.OfferStatistic;
 import com.example.demo.model.Client;
 import com.example.demo.model.Offer;
-import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.OfferRepository;
 import com.example.demo.service.OfferStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

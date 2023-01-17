@@ -2,45 +2,42 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.NewOfferParameters;
 import com.example.demo.dto.OfferStatistic;
+import com.example.demo.model.Client;
 import com.example.demo.model.Offer;
-import com.example.demo.repository.OfferRepository;
 import com.example.demo.service.OfferControllerService;
 import com.example.demo.service.OfferStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 
 @RestController
 @RequestMapping("/api/v1/offer")
 public class OfferController {
 
-	private final OfferRepository offerRepository;
+	private final Map<UUID, Offer> OfferRepository = new HashMap<>();
 
 	private final OfferControllerService offerService;
 
 	private final OfferStatisticService offerStatisticService;
 
 	@Autowired
-	public OfferController(final OfferRepository offerRepository,
-	                       final OfferControllerService offerService,
+	public OfferController(
+			               final OfferControllerService offerService,
 	                       final OfferStatisticService offerStatisticService) {
-		this.offerRepository = offerRepository;
 		this.offerService = offerService;
 		this.offerStatisticService = offerStatisticService;
 	}
 
 	@GetMapping("/")
 	public List<Offer> getOffer() {
-		return offerRepository.findAll();
+		return new ArrayList<>(OfferRepository.values());
 	}
 
 	@GetMapping("/{id}")
 	public Offer getOfferById(@PathVariable("id") UUID id) {
-		return offerRepository.findById(id).orElse(null);
+		return OfferRepository.get(id);
 	}
 
 	@PutMapping("/")
